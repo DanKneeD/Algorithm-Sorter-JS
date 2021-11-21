@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="algosorter.css">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        footer {
+            position: fixed;
+          left: 0;
+          bottom: 0;
+          width: 100%;
+          height: 7%;
+          background-color: rgb(22, 21, 20);
+          color: white;
+          text-align: center;
+        }
+        </style>
+</head>
+
+<body>
+    <div class="ButtonsParent">
+        Algorithm Types
+        <div class="Buttons">
+            <button type="button" class="Button"> Quick sort</button>
+            <button  type="button"class="Button"  id="BubbleBtn"> Bubble sort</button>
+            <button  type="button"class="Button"> Merge sort</button>
+            <button  type="button"class="Button" id="InsertionSort"> Insertion sort</button>
+            <button  type="button"class="Button" id="selectionSort"> Selction sort</button>
+            <button type="button" class="Button" id="RandomizeBtn"> Randomize Graph</button>
+            
+        </div>
+        <div class="Stats">
+            <h1>Statistics </h1>
+            Speed
+             <select name="speed" id="Input">
+                  <option value="100"> Turtle </option>  
+                  <option value="50"> Grandpa </option> 
+                  <option value="25"> Readable  </option> 
+                  <option value="10"> UsainBolt </option> 
+                  <option value="0"> Don't Blink </option> 
+            </select>
+            <div> Comparisons <div id='compNum'>0</div> </div> 
+            <div> Array accesses <div id='arrayNum'>0</div> </div> 
+        </div>
+    </div>
+    <header>
+        Algorithm Sorter
+        
+        </header>
+    <div id ="BigContainer" class="SortingContainer">
+     
+        <div id ="sorting"class="Sortings">
+           
+        </div>
+    </div>
+
+</body>
+
+
+<footer>
+
+    <a class="FooterButton"href="clock.html">Clock</a>
+       <a class="FooterButton"href="index.html">StopWatch</a>
+       <a class="FooterButton"href="calculator.html">Calculator</a>
+       <a class="FooterButton"href="algosorter.html">Algorithm Sorter</a>
+</footer>
+
+
+</html>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+<script src="algosorter.js"  type="text/javascript"></script>
