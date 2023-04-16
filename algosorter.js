@@ -29,10 +29,7 @@ let n = ObjHeights.length;
 function sizeGraph() {
   console.log(document.getElementById("BigContainer").clientWidth / 7);
   console.log(numOfLines);
-  while (
-    numOfLines + 1 <=
-    document.getElementById("BigContainer").clientWidth / 7
-  ) {
+  while (numOfLines + 1 <= document.getElementById("BigContainer").clientWidth / 7) {
     var div = document.createElement("div");
 
     div.className = "frequencyItem";
@@ -43,10 +40,7 @@ function sizeGraph() {
     numOfLines++;
   }
 
-  while (
-    numOfLines >=
-    document.getElementById("BigContainer").clientWidth / 7
-  ) {
+  while (numOfLines >= document.getElementById("BigContainer").clientWidth / 7) {
     numOfLines--;
     var div = document.getElementById("frequencyItem" + numOfLines);
     div.parentNode.removeChild(div);
@@ -145,8 +139,9 @@ function insertionSort() {
       let j = i - 1;
 
       for (var x = 0; x <= ColCounter; x++) {
-        $("#frequencyItem" + ChangeCol[x]).css("backgroundColor", "grey");
+        $("#frequencyItem" + ChangeCol[x]).css("backgroundColor", "white");
       }
+
       //Find position for lower value
       while (j > -1 && current < ObjHeights[j]) {
         ObjHeights[j + 1] = ObjHeights[j];
@@ -239,10 +234,7 @@ function selectionSort() {
       updateValues(false);
 
       $("#frequencyItem" + s).css("height", ObjHeights[s]);
-      $("#frequencyItem" + tempMinValuePos).css(
-        "height",
-        ObjHeights[tempMinValuePos]
-      );
+      $("#frequencyItem" + tempMinValuePos).css("height", ObjHeights[tempMinValuePos]);
       $("#frequencyItem" + tempMinValuePos).css("backgroundColor", "red");
       $("#frequencyItem" + s).css("backgroundColor", "green");
 
@@ -257,7 +249,96 @@ function selectionSort() {
   }
 }
 
-function mergeSort() {}
+async function mergeSortHelper(arr, l, r) {
+  if (l < r) {
+    let m = parseInt((l + r) / 2);
+    await mergeSortHelper(arr, l, m);
+    await mergeSortHelper(arr, m + 1, r);
+    await merge(arr, l, m, r);
+  }
+}
+
+async function merge(arr, l, m, r) {
+  let n1 = m - l + 1;
+  let n2 = r - m;
+
+  let L = [];
+  let R = [];
+
+  for (let i = 0; i < n1; i++) {
+    L[i] = arr[l + i];
+  }
+
+  for (let j = 0; j < n2; j++) {
+    R[j] = arr[m + 1 + j];
+  }
+
+  let i = 0;
+  let j = 0;
+  let k = l;
+
+  while (i < n1 && j < n2) {
+    $("#frequencyItem" + (l + i)).css("backgroundColor", "red");
+    $("#frequencyItem" + (m + 1 + j)).css("backgroundColor", "red");
+
+    await new Promise((resolve) =>
+      setTimeout(() => {
+        resolve();
+      }, sortingSpeed)
+    );
+
+    if (L[i] <= R[j]) {
+      arr[k] = L[i];
+      i++;
+    } else {
+      arr[k] = R[j];
+      j++;
+    }
+
+    $("#frequencyItem" + k).css("height", arr[k]);
+    $("#frequencyItem" + (l + i - 1)).css("backgroundColor", "white");
+    $("#frequencyItem" + (m + 1 + j - 1)).css("backgroundColor", "white");
+
+    k++;
+  }
+
+  while (i < n1) {
+    await new Promise((resolve) =>
+      setTimeout(() => {
+        resolve();
+      }, sortingSpeed)
+    );
+
+    arr[k] = L[i];
+    $("#frequencyItem" + k).css("height", arr[k]);
+    $("#frequencyItem" + (l + i)).css("backgroundColor", "white");
+
+    i++;
+    k++;
+  }
+
+  while (j < n2) {
+    await new Promise((resolve) =>
+      setTimeout(() => {
+        resolve();
+      }, sortingSpeed)
+    );
+
+    arr[k] = R[j];
+    $("#frequencyItem" + k).css("height", arr[k]);
+    $("#frequencyItem" + (m + 1 + j)).css("backgroundColor", "white");
+
+    j++;
+    k++;
+  }
+}
+
+async function mergeSort() {
+  let l = 0;
+  let r = ObjHeights.length - 1;
+  await mergeSortHelper(ObjHeights, l, r);
+  lockButtin(false);
+}
 
 //########################################################################################################
 
@@ -273,6 +354,14 @@ document.getElementById("InsertionSort").onclick = function () {
   updateValues(true);
   lockButtin(true);
   insertionSort(ObjHeights);
+};
+
+document.getElementById("MergeSort").onclick = function () {
+  n = ObjHeights.length;
+
+  updateValues(true);
+  lockButtin(true);
+  mergeSort();
 };
 
 document.getElementById("BubbleBtn").onclick = function () {
